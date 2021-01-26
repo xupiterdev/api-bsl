@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./utils/database.util');
 
-const PORT = 1010
+const PORT = 3001
 
 // DB
 db()
