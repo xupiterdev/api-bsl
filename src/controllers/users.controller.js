@@ -22,9 +22,9 @@ exports.singIn = async (req, res) => {
     try{
         let userData = await ProUsers.findOne({user});
 
-        if(userData === null) res.status(404).json({msg : `El usuario: ${user}, no  existe`})
+        if(userData === null) return res.status(404).json({msg : `El usuario ${user}, no  existe`})
+        if(! await userData.validatePassword(password)) return res.status(404).json({msg : "Tu contraseña es incorrecta, intenta nuevamente"})
         
-        if(! await userData.validatePassword(password)) res.status(404).json({msg : "Contraseña incorrecta"})
         let token = jwt.sign({
             _id : user._id
         }, "bsl", {
