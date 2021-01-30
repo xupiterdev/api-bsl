@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Api para el procesamiento de datos de la agencia BSL",
   "main": "index.js",
-  "scripts" : {
-    "dev" : "nodemon src/index.js",
-    "start" : "node src/index.js"
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "author": "Xupiter.dev",
   "license": "MIT",
