@@ -15,7 +15,7 @@ const schema = new Schema({
     jobPosition : {
         type : String,
         required : true,
-        enum : ["Jefe de area", "Ejecutivo"],
+        enum : ["Super usuario", "Jefe de area", "Ejecutivo"],
     },
     user : {
         type : String,
