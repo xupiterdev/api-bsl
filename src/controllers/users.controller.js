@@ -1,7 +1,7 @@
 const ProUsers = require('../models/pro_users.model');
 const jwt = require('jsonwebtoken')
 
-exports.singUp = async (req, res) => {
+exports.signUp = async (req, res) => {
     const user = req.body;
 
     try{
@@ -16,7 +16,7 @@ exports.singUp = async (req, res) => {
     }
 }
 
-exports.singIn = async (req, res) => {
+exports.signIn = async (req, res) => {
     const {user, password} = req.body
 
     try{

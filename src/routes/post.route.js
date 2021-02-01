@@ -8,7 +8,7 @@ const router = express.Router();
 
 // ROUTES
 // Aqui se ponen las rutas de nuetra api Eje. router.get('/institutes/institute', institute_controller.getInstitutes)
-router.post('/users/sing-up', usersController.singUp)
-router.post('/users/sing-in', usersController.singIn)
+router.post('/users/sign-up', usersController.signUp)
+router.post('/users/sign-in', usersController.signIn)
 // EXPORT
 module.exports = router;

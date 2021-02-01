@@ -41,5 +41,5 @@ schema.methods.validatePassword = function (password){
     return bcrypt.compare(password, this.password);
 }
 
-const model = mongoose.model('pro_usuarios', schema);
+const model = mongoose.model('pro_users', schema);
 module.exports = model;
