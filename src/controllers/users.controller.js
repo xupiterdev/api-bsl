@@ -22,8 +22,8 @@ exports.signIn = async (req, res) => {
     try{
         let userData = await ProUsers.findOne({user});
 
-        if(userData === null) return res.status(404).json({msg : `El usuario ${user}, no  existe`})
-        if(! await userData.validatePassword(password)) return res.status(404).json({msg : "Tu contraseña es incorrecta, intenta nuevamente"})
+        if(userData === null) return res.status(202).json({msg : `El usuario ${user}, no  existe`})
+        if(! await userData.validatePassword(password)) return res.status(202).json({msg : "Tu contraseña es incorrecta, intenta nuevamente"})
         
         let token = jwt.sign({
             _id : user._id
@@ -38,7 +38,8 @@ exports.signIn = async (req, res) => {
                 name : userData.name,
                 lastname : userData.lastname,
                 user : userData.user
-            }
+            },
+            msg: `Bienvenido, ${userData.name}`
         })
     }catch(err){
         console.log("Error in singIn -> ",err)
