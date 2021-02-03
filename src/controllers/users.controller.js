@@ -21,7 +21,7 @@ exports.signIn = async (req, res) => {
 
     try{
         let userData = await ProUsers.findOne({user});
-
+        
         if(userData === null) return res.status(202).json({msg : `El usuario ${user}, no  existe`})
         if(! await userData.validatePassword(password)) return res.status(202).json({msg : "Tu contraseña es incorrecta, intenta nuevamente"})
         

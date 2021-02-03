@@ -7,8 +7,8 @@ const catalog = new Schema({
         type: String,
         required: true
     },
-    values: [{
-        contenido: {
+    options: [{
+        value: {
             type: String,
             required: true
         }

@@ -22,7 +22,7 @@ app.use(express.urlencoded({extended:false}))
 app.use(express.json());
 
 // ROUTES
-// app.use('/v1', require('./routes/get.route')) // GET
+app.use('/v1', require('./routes/get.route')) // GET
 app.use('/v1', require('./routes/post.route')) // POST
 // app.use('/v1', require('./routes/delete.route')) // DELETE
 // app.use('/v1', require('./routes/put.route')) // PUT

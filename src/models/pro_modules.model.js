@@ -1,4 +1,4 @@
-const mongoose = require('mongosee')
+const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
@@ -14,8 +14,7 @@ const modulus = new Schema({
     icon: String,
     _Action: [{
         type: Schema.Types.ObjectId,
-        ref: 'cat_actions',
-        required: true
+        ref: 'cat_actions'
     }],
     kind: {
         type: String,
@@ -24,8 +23,7 @@ const modulus = new Schema({
     },
     _Predecessor:{
         type: Schema.Types.ObjectId,
-        ref: 'pro_modules',
-        required: true
+        ref: 'pro_modules'
     }
 
 })

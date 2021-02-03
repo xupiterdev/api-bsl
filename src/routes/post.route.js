@@ -3,6 +3,7 @@ const express = require('express');
 // CONTROLLERS
 const usersController = require('../controllers/users.controller')
 const catalogsController = require('../controllers/catalogs.controller')
+const modulesController = require('../controllers/modules.controller')
 
 // CONFIG
 const router = express.Router();
@@ -12,5 +13,6 @@ const router = express.Router();
 router.post('/users/sign-up', usersController.signUp)
 router.post('/users/sign-in', usersController.signIn)
 router.post('/catalogs/add', catalogsController.addCat)
+router.post('/modules/add', modulesController.addModule)
 // EXPORT
 module.exports = router;
