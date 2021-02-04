@@ -27,7 +27,7 @@ exports.signIn = async (req, res) => {
         
         let token = jwt.sign({
             _id : user._id
-        }, "bsl", {
+        }, "e427210770d53993kc5edf5006185e59", {
             expiresIn : 60 * 60 * 24
         })
 
