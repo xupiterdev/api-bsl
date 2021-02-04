@@ -9,11 +9,25 @@ exports.add = async (req, res) => {
 
         await mod.save();
 
-        let find = ProModules.find()
+        let find = await ProModules.find()
 
         return res.status(200).json({modules : find, msg : `El modulo ${module.name} se guardo con exito :)`})
 
     } catch (err) {
         console.log("Error in addModule ->", err)
+    }
+}
+
+exports.find = async (req, res) => {
+    try {
+
+        let find = await ProModules.find()
+
+        if(find === null) return res.status(202).json({msg : `No hay ningun tipo de modulos`})
+
+        res.status(200).json(find)
+
+    } catch (err) {
+        console.log("Error in find ->", err)
     }
 }
