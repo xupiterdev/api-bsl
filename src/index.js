@@ -25,7 +25,7 @@ app.use(express.json());
 app.use('/v1', require('./routes/get.route')) // GET
 app.use('/v1', require('./routes/post.route')) // POST
 // app.use('/v1', require('./routes/delete.route')) // DELETE
-// app.use('/v1', require('./routes/put.route')) // PUT
+app.use('/v1', require('./routes/put.route')) // PUT
 app.use('/', (req, res) => {
     res.json({msg : "Welcome to BSL API"})
 })

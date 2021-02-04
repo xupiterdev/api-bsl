@@ -1,6 +1,6 @@
 const CatCatalogs = require('../models/cat_catalogs.model')
 
-exports.addCat = async (req, res) => {
+exports.addCatalog = async (req, res) => {
     const catalog = req.body
 
     try {
@@ -8,18 +8,30 @@ exports.addCat = async (req, res) => {
         
         await cat.save();
 
-        return res.status(200).json({msg : `El Catalogo ${catalog.typeof} y su contenido se guardo con exito :)`})
+        return res.status(200).json({msg : `El catalogo ${catalog.typeof} y su contenido se guardo con exito :)`})
 
     } catch (err) {
-        console.log(err);
+        console.log("Error in addCatalog ->", err);
     }
 }
 
-// exports.addOptionCat = async (req, res) => {
+exports.addOptionCatalog = async (req, res) => {
+    const cat = req.body
 
-// }
+    try {
+        
+        let catalogs = await CatCatalogs.findByIdAndUpdate(cat._id, { $push : { options : [{ value : cat.option}] } })
 
-exports.findCat = async (req, res) => {
+        if(catalogs === null) return res.status(202).json({msg : `La tabla seleccionada no existe en la base de datos`})
+
+        res.status(200).json({msg : `La opcion ${cat.option} se guardo correctamente`})
+
+    } catch (error) {
+        console.log("Error in addOptionCatalog ->", err)
+    }
+}
+
+exports.findCatalog = async (req, res) => {
     try {
 
         let catalogs = await CatCatalogs.find()
@@ -29,12 +41,14 @@ exports.findCat = async (req, res) => {
         res.status(200).json(catalogs)
         
     } catch (err) {
-        console.log(err)
+        console.log("Error in findCatalog ->" ,err)
     }
 }
 
-exports.findCatById = async (req, res) => {
+exports.findCatalogById = async (req, res) => {
     const catId = req.params.id
+
+    console.log(catId)
     
     try {
         
@@ -45,7 +59,7 @@ exports.findCatById = async (req, res) => {
         res.status(200).json(catalog)
 
     } catch (error) {
-        
+        console.log("Error in findCatalogById ->" ,err)
     }
 }
 

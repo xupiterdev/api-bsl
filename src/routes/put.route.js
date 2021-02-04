@@ -1,13 +1,13 @@
 const express = require('express');
 
 // CONTROLLERS
-// Aqui se ponene nuestros controladores
+const catalogsController = require('../controllers/catalogs.controller')
 
 // CONFIG
 const router = express.Router();
 
 // ROUTES
 // Aqui se ponen las rutas de nuetra api
-
+router.put('/catalogs/addOption', catalogsController.addOptionCatalog)
 // EXPORT
 module.exports = router;
