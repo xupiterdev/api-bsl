@@ -11,7 +11,7 @@ exports.add = async (req, res) => {
         return res.status(200).json({msg : `El catalogo ${catalog.typeof} y su contenido se guardo con exito :)`})
 
     } catch (err) {
-        console.log("Error in addCatalog ->", err);
+        console.log("Error in add ->", err);
     }
 }
 
@@ -27,7 +27,7 @@ exports.addOption = async (req, res) => {
         res.status(200).json({msg : `La opcion ${cat.option} se guardo correctamente`})
 
     } catch (error) {
-        console.log("Error in addOptionCatalog ->", err)
+        console.log("Error in addOption ->", err)
     }
 }
 
@@ -41,7 +41,7 @@ exports.find = async (req, res) => {
         res.status(200).json(catalogs)
         
     } catch (err) {
-        console.log("Error in findCatalog ->" ,err)
+        console.log("Error in find ->" ,err)
     }
 }
 
@@ -57,7 +57,7 @@ exports.findById = async (req, res) => {
         res.status(200).json(catalog)
 
     } catch (error) {
-        console.log("Error in findCatalogById ->" ,err)
+        console.log("Error in findById ->" ,err)
     }
 }
 
@@ -71,7 +71,7 @@ exports.updTypeof = async (req, res) => {
         res.status(200).json(response)
  
     } catch (err) {
-        console.log("Error in updCatalog ->", err)
+        console.log("Error in updTypeof ->", err)
     }
 }
 

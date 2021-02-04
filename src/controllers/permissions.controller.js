@@ -12,6 +12,6 @@ exports.add = async (req, res) => {
         return res.status(200).json({msg : `El permiso se agrego con exito :)`})
 
     } catch (err) {
-        console.log("Error in addPermission", err)
+        console.log("Error in add", err)
     }
 }

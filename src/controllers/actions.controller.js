@@ -11,6 +11,6 @@ exports.add = async (req, res) => {
         return res.status(200).json({msg : `La accion ${action.name} se guardo con exito :)`})
 
     } catch (err) {
-        console.log("Error in addAction ->", err)
+        console.log("Error in add->", err)
     }
 }
