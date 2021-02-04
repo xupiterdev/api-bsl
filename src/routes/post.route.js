@@ -14,10 +14,10 @@ const router = express.Router();
 router.post('/users/sign-up', usersController.signUp)
 router.post('/users/sign-in', usersController.signIn)
 
-router.post('/catalogs/add', catalogsController.add)
+router.post('/catalogs', catalogsController.add)
 
-router.post('/modules/add', modulesController.addModule)
+router.post('/modules', modulesController.addModule)
 
-router.post('/actions/add', actionsController.addAction)
+router.post('/actions', actionsController.addAction)
 // EXPORT
 module.exports = router;
