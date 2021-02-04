@@ -22,7 +22,7 @@ exports.addOptionCatalog = async (req, res) => {
         
         let catalogs = await CatCatalogs.findByIdAndUpdate(cat._id, { $push : { options : [{ value : cat.option}] } })
 
-        if(catalogs === null) return res.status(202).json({msg : `La tabla seleccionada no existe en la base de datos`})
+        if(catalogs === null) return res.status(202).json({msg : `El catalogo seleccionado no existe en la base de datos`})
 
         res.status(200).json({msg : `La opcion ${cat.option} se guardo correctamente`})
 
@@ -62,4 +62,34 @@ exports.findCatalogById = async (req, res) => {
         console.log("Error in findCatalogById ->" ,err)
     }
 }
+
+exports.updCatalog = async (req, res) => {
+    const catId = req.params.id
+    const catalog = req.body
+
+    try {
+
+        let cat = await CatCatalogs.findByIdAndUpdate(catId, catalog)
+
+        console.log(cat)
+
+        if(cat === null) return res.status(202).json({msg : `El catalogo al que se quiere modificart no existe en la base de datos`})
+ 
+    } catch (err) {
+        console.log("Error in updCatalog ->", err)
+    }
+}
+
+// exports.updOptionCatalog = async (req, res) => {
+//     const catId = req.params.id
+//     const option = req.body
+
+//     try {
+        
+//         let opt = await CatCatalogs.findByIdAndUpdate(catId, { $push : { options : [{ value : cat.option}] } })
+
+//     } catch (err) {
+//         console.log("Error in updOption ->", err)
+//     }
+// }
 
