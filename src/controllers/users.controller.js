@@ -1,5 +1,9 @@
+require('dotenv').config()
+
 const ProUsers = require('../models/pro_users.model');
 const jwt = require('jsonwebtoken')
+
+const API_KEY = process.env.API_KEY
 
 exports.signUp = async (req, res) => {
     const user = req.body;
@@ -27,7 +31,7 @@ exports.signIn = async (req, res) => {
         
         let token = jwt.sign({
             _id : user._id
-        }, "e427210770d53993kc5edf5006185e59", {
+        }, API_KEY, {
             expiresIn : 60 * 60 * 24
         })
 
