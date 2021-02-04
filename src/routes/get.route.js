@@ -8,7 +8,7 @@ const router = express.Router();
 
 // ROUTES
 // Aqui se ponen las rutas de nuetra api
-router.get('/catalogs/', catalogsController.findCatalog)
-router.get('/catalogs/catalog/:id', catalogsController.findCatalogById)
+router.get('/catalogs/', catalogsController.find)
+router.get('/catalogs/catalog/:id', catalogsController.findById)
 // EXPORT
 module.exports = router;

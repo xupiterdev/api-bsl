@@ -1,6 +1,6 @@
 const CatCatalogs = require('../models/cat_catalogs.model')
 
-exports.addCatalog = async (req, res) => {
+exports.add = async (req, res) => {
     const catalog = req.body
 
     try {
@@ -15,7 +15,7 @@ exports.addCatalog = async (req, res) => {
     }
 }
 
-exports.addOptionCatalog = async (req, res) => {
+exports.addOption = async (req, res) => {
     const cat = req.body
 
     try {
@@ -31,7 +31,7 @@ exports.addOptionCatalog = async (req, res) => {
     }
 }
 
-exports.findCatalog = async (req, res) => {
+exports.find = async (req, res) => {
     try {
 
         let catalogs = await CatCatalogs.find()
@@ -45,10 +45,8 @@ exports.findCatalog = async (req, res) => {
     }
 }
 
-exports.findCatalogById = async (req, res) => {
+exports.findById = async (req, res) => {
     const catId = req.params.id
-
-    console.log(catId)
     
     try {
         
@@ -63,33 +61,34 @@ exports.findCatalogById = async (req, res) => {
     }
 }
 
-exports.updCatalog = async (req, res) => {
-    const catId = req.params.id
+exports.updTypeof = async (req, res) => {
     const catalog = req.body
 
     try {
 
-        let cat = await CatCatalogs.findByIdAndUpdate(catId, catalog)
+        let response = await CatCatalogs.updateTypeof(catalog._id,catalog.typeof)
 
-        console.log(cat)
-
-        if(cat === null) return res.status(202).json({msg : `El catalogo al que se quiere modificart no existe en la base de datos`})
+        res.status(200).json(response)
  
     } catch (err) {
         console.log("Error in updCatalog ->", err)
     }
 }
 
-// exports.updOptionCatalog = async (req, res) => {
-//     const catId = req.params.id
-//     const option = req.body
+exports.updOption = async (req, res) => {
+    const option = req.body
 
-//     try {
+    try {
         
-//         let opt = await CatCatalogs.findByIdAndUpdate(catId, { $push : { options : [{ value : cat.option}] } })
+        let opt = await CatCatalogs.findOneAndUpdate({"options._id" : option._id}, { "options.$.value" : option.value }, { new : true })
 
-//     } catch (err) {
-//         console.log("Error in updOption ->", err)
-//     }
-// }
+        console.log(opt)
 
+        return res.status(200).json({msg: `La opcion se actualizo con exito :)`})
+
+    } catch (err) {
+        console.log("Error in updOption ->", err)
+    }
+}
+
+//FAltan los del

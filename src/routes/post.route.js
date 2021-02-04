@@ -14,7 +14,7 @@ const router = express.Router();
 router.post('/users/sign-up', usersController.signUp)
 router.post('/users/sign-in', usersController.signIn)
 
-router.post('/catalogs/add', catalogsController.addCatalog)
+router.post('/catalogs/add', catalogsController.add)
 
 router.post('/modules/add', modulesController.addModule)
 

@@ -8,7 +8,8 @@ const router = express.Router();
 
 // ROUTES
 // Aqui se ponen las rutas de nuetra api
-router.put('/catalogs/addOption', catalogsController.addOptionCatalog)
-router.put('/catalogs/updCatalog/:id', catalogsController.updCatalog)
+router.put('/catalogs/addOption', catalogsController.addOption)
+router.put('/catalogs/typeof', catalogsController.updTypeof)
+router.put('/catalogs/option', catalogsController.updOption)
 // EXPORT
 module.exports = router;
