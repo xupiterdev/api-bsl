@@ -1,6 +1,6 @@
 const RelPermissions = require('../models/rel_permissions.model')
 
-exports.addPermission = async (req, res) => {
+exports.add = async (req, res) => {
     const permission = req.body
 
     try {
@@ -9,7 +9,7 @@ exports.addPermission = async (req, res) => {
 
         perm.save()
 
-        return res.status(200).json({msg : `Se añadio correctamente el permiso`})
+        return res.status(200).json({msg : `El permiso se agrego con exito :)`})
 
     } catch (err) {
         console.log("Error in addPermission", err)

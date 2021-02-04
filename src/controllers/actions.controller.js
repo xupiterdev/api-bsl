@@ -1,6 +1,6 @@
 const CatActions = require('../models/cat_actions.model')
 
-exports.addAction = async (req, res) => {
+exports.add = async (req, res) => {
     const action = req.body
 
     try {

@@ -1,6 +1,6 @@
 const ProModules = require('../models/pro_modules.model')
 
-exports.addModule = async (req, res) => {
+exports.add = async (req, res) => {
     const module = req.body
 
     try {

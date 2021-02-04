@@ -46,7 +46,7 @@ exports.find = async (req, res) => {
 }
 
 exports.findById = async (req, res) => {
-    const catId = req.params.id
+    const catId = req.query._id
     
     try {
         
