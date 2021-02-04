@@ -9,7 +9,9 @@ exports.add = async (req, res) => {
 
         await mod.save();
 
-        return res.status(200).json({msg : `El modulo ${module.name} se guardo con exito :)`})
+        let find = ProModules.find()
+
+        return res.status(200).json({modules : find, msg : `El modulo ${module.name} se guardo con exito :)`})
 
     } catch (err) {
         console.log("Error in addModule ->", err)

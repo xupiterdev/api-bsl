@@ -9,17 +9,18 @@ const permissionsController = require('../controllers/permissions.controller')
 
 // CONFIG
 const router = express.Router();
+const middleware = require('../utils/middlewares.util')
 
 // ROUTES
 router.post('/users/sign-up', usersController.signUp)
 router.post('/users/sign-in', usersController.signIn)
 
-router.post('/catalogs', catalogsController.add)
+router.post('/catalogs', middleware.validateToken, catalogsController.add)
 
-router.post('/modules', modulesController.add)
+router.post('/modules', middleware.validateToken, modulesController.add)
 
-router.post('/actions', actionsController.add)
+router.post('/actions', middleware.validateToken, actionsController.add)
 
-router.post('/permissions', permissionsController.add)
+router.post('/permissions', middleware.validateToken, permissionsController.add)
 // EXPORT
 module.exports = router;
