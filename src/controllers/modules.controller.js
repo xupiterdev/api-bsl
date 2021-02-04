@@ -25,7 +25,7 @@ exports.find = async (req, res) => {
 
         if(find === null) return res.status(202).json({msg : `No hay ningun tipo de modulos`})
 
-        res.status(200).json(find)
+        res.status(200).json({modules : find})
 
     } catch (err) {
         console.log("Error in find ->", err)
