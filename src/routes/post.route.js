@@ -17,7 +17,7 @@ router.post('/users/sign-in', usersController.signIn)
 
 router.post('/catalogs', middleware.validateToken, catalogsController.add)
 
-router.post('/modules', middleware.validateToken, modulesController.add)
+router.post('/modules', modulesController.add)
 
 router.post('/actions', middleware.validateToken, actionsController.add)
 
