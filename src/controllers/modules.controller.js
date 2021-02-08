@@ -1,5 +1,4 @@
 const ProModules = require('../models/pro_modules.model')
-const mongoose = require('mongoose')
 
 exports.add = async (req, res) => {
     const module = req.body

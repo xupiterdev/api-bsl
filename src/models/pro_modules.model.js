@@ -24,6 +24,11 @@ const modulus = new Schema({
     _Predecessor:{
         type: Schema.Types.ObjectId,
         ref: 'pro_modules'
+    },
+    isActive: {
+        type: Boolean,
+        default: true,
+        required: true
     }
 
 })

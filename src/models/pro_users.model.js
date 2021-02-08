@@ -25,7 +25,12 @@ const schema = new Schema({
     password : {
         type : String,
         required : true
-    }
+    },
+    _Action: [{
+        type: Schema.Types.ObjectId,
+        ref: 'cat_actions',
+        required: true
+    }]
 });
 
 schema.methods.encryptPassword = async (password) => {
