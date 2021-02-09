@@ -30,7 +30,12 @@ const schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'cat_actions',
         required: true
-    }]
+    }],
+    isActive: {
+        type: Boolean,
+        default: true,
+        required: true
+    }
 });
 
 schema.methods.encryptPassword = async (password) => {

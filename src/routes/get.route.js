@@ -3,6 +3,7 @@ const express = require('express');
 // CONTROLLERS
 const catalogsController = require('../controllers/catalogs.controller')
 const modulesController = require('../controllers/modules.controller')
+const historicalsController = require('../controllers/historicals.controller')
 
 // CONFIG
 const router = express.Router();
@@ -14,5 +15,7 @@ router.get('/catalogs', middleware.validateToken, catalogsController.find)
 router.get('/catalogs/catalog', middleware.validateToken, catalogsController.findById)
 
 router.get('/modules/module', modulesController.find)
+
+router.get('/historicals', historicalsController.find)
 // EXPORT
 module.exports = router;

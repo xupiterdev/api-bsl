@@ -33,7 +33,7 @@ catalog.statics.updateTypeof = async function(_id, typeOf) {
         
         let find = await this.findById(updatedTypeof._id, { __v : 0})
 
-        return({catalog : find, msg : `El campo '${updatedTypeof.typeof}' se actualizo a '${typeOf}' con exito :)`})
+        return({catalog : find, last : updatedTypeof.typeof})
 
     } catch (err) {
         console.log("Error in updateTypeof ->", err)

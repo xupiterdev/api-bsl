@@ -1,14 +1,29 @@
 const CatCatalogs = require('../models/cat_catalogs.model')
+const Historics = require('./historicals.controller')
+const Area = "Catalogos"
 
 exports.add = async (req, res) => {
     const catalog = req.body
+    const UserId = "601b04b76cc9212c74b1f984"
 
     try {
         let addedCatalog = new CatCatalogs(catalog)
         
-        await addedCatalog.save();
+        let newCatalog = await addedCatalog.save()
 
-        return res.status(200).json({msg : `El catalogo ${catalog.typeof} y su contenido se guardo con exito :)`})
+        let toHistoric = {
+            _User : UserId,
+            actions : [{
+                eventAction : "Agrego un nuevo catalogo",
+                area : Area
+            }]
+        }
+
+        let registeredHistoric = await Historics.add(toHistoric)
+
+        console.log(registeredHistoric)
+
+        return res.status(200).json({msg : `El catalogo ${newCatalog.typeof} y su contenido se guardo con exito :)`})
 
     } catch (err) {
         console.log("Error in add ->", err);
@@ -63,12 +78,29 @@ exports.findById = async (req, res) => {
 
 exports.updTypeof = async (req, res) => {
     const catalog = req.body
+    const UserId = "601b04b76cc9212c74b1f984"
+    // const UserId = req._User
+    
 
     try {
 
         let updatedCatalog = await CatCatalogs.updateTypeof(catalog._id,catalog.typeof)
 
-        res.status(200).json(updatedCatalog)
+        let toHistoric = {
+            _User : UserId,
+            actions : [{
+                eventAction : "Modifico un catalogo",
+                area : Area,
+                current : updatedCatalog.catalog.typeof,
+                last : updatedCatalog.last
+            }]
+        }
+
+        let registeredHistoric = await Historics.add(toHistoric)
+
+        console.log(registeredHistoric)
+
+        res.status(200).json({ updated : updatedCatalog.catalog, msg : `El catalogo  se modifico de ${updatedCatalog.last} a ${updatedCatalog.catalog.typeof}`})
  
     } catch (err) {
         console.log("Error in updTypeof ->", err)
