@@ -10,6 +10,11 @@ const action = new Schema({
     description: {
         type: String,
         required: true
+    },
+    isActive: {
+        type: Boolean,
+        default: true,
+        required: true
     }
 })
 

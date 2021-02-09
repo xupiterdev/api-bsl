@@ -25,6 +25,16 @@ const schema = new Schema({
     password : {
         type : String,
         required : true
+    },
+    _Action: [{
+        type: Schema.Types.ObjectId,
+        ref: 'cat_actions',
+        required: true
+    }],
+    isActive: {
+        type: Boolean,
+        default: true,
+        required: true
     }
 });
 
