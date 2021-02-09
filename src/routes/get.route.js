@@ -13,6 +13,7 @@ const middleware = require('../utils/middlewares.util')
 router.get('/catalogs', middleware.validateToken, catalogsController.find)
 router.get('/catalogs/catalog', middleware.validateToken, catalogsController.findById)
 
-router.get('/modules/module', middleware.validateToken, modulesController.find)
+router.get('/modules/module', modulesController.find)
+// router.get('/modules/module', middleware.validateToken, modulesController.find)
 // EXPORT
 module.exports = router;

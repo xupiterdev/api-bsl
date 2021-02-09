@@ -16,7 +16,6 @@ exports.validateToken= (req, res, next) => {
             let dataToken = jwt.verify(token, API_KEY)
             req._User = dataToken._id
             next()
-
         } catch (err) {
             res.status(403).json({msg : `El token es incorrecto. Inicia sesion nuevamente`})
         }
