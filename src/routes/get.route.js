@@ -10,12 +10,11 @@ const router = express.Router();
 const middleware = require('../utils/middlewares.util')
 
 // ROUTES
-// Aqui se ponen las rutas de nuetra api
-router.get('/catalogs', middleware.validateToken, catalogsController.find)
-router.get('/catalogs/catalog', middleware.validateToken, catalogsController.findById)
+router.get('/catalogs/catalog', middleware.validateToken, catalogsController.find)
 
 router.get('/modules/module', middleware.validateToken, modulesController.find)
 
-router.get('/historicals', historicalsController.find)
+router.get('/historicals/historical', middleware.validateToken, historicalsController.find)
+
 // EXPORT
 module.exports = router;

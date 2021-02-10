@@ -16,15 +16,17 @@ const middleware = require('../utils/middlewares.util')
 router.post('/users/sign-up', usersController.signUp)
 router.post('/users/sign-in', usersController.signIn)
 
-router.post('/catalogs', catalogsController.add)
+router.post('/catalogs/catalog', middleware.validateToken, catalogsController.add)
+router.post('/catalogs/option', middleware.validateToken, catalogsController.addOption)
 
-router.post('/modules', middleware.validateToken, modulesController.add)
+router.post('/modules/module', middleware.validateToken, modulesController.add)
 router.post('/modules/action', middleware.validateToken, modulesController.addAction)
 
-router.post('/actions', middleware.validateToken, actionsController.add)
+router.post('/actions/action', middleware.validateToken, actionsController.add)
 
-router.post('/permissions', middleware.validateToken, permissionsController.add)
+router.post('/permissions/permission', middleware.validateToken, permissionsController.add)
 
-router.post('/historics', permissionsController.add)
+router.post('/historics/historic', middleware.validateToken, permissionsController.add)
+
 // EXPORT
 module.exports = router;

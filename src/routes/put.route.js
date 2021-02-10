@@ -9,8 +9,8 @@ const middleware = require('../utils/middlewares.util')
 
 // ROUTES
 // Aqui se ponen las rutas de nuetra api
-router.put('/catalogs/addOption', middleware.validateToken, catalogsController.addOption)
-router.put('/catalogs/typeof', catalogsController.updTypeof)
+router.put('/catalogs/catalog', middleware.validateToken, catalogsController.updTypeof)
 router.put('/catalogs/option', middleware.validateToken, catalogsController.updOption)
+
 // EXPORT
 module.exports = router;

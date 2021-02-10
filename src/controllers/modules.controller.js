@@ -1,8 +1,11 @@
 const ProModules = require('../models/pro_modules.model')
 const CatActions = require('../models/cat_actions.model')
+const Historics = require('./historicals.controller')
+const Area = "Modulos"
 
 exports.add = async (req, res) => {
     const {name, shortName, type, _Module} = req.body
+    const UserId = req._User
 
     let data = {name,shortName}
 
@@ -15,6 +18,17 @@ exports.add = async (req, res) => {
         }
 
         let findModule = await ProModules.find()
+
+        let toHistoric = {
+            _User : UserId,
+            actions : [{
+                eventAction : `Agrego el modulo '${name}'`,
+                area : Area
+            }]
+        }
+
+        await Historics.add(toHistoric)
+
         res.status(200).json({modules : findModule, msg : `El modulo ${name} se guardo con exito :)`})
 
     } catch (err) {
@@ -52,6 +66,32 @@ exports.find = async (req, res) => {
 
     } catch (err) {
         console.log("Error in find ->", err)
+    }
+}
+
+// The delete functions will utilice the update function, because just will be logical deletes.
+exports.delete = async (req, res) => {
+    const idModule = req.query._id
+    const UserId = req._User
+
+    try {
+        
+        let deletedModule = await ProModules.findByIdAndUpdate(idModule, { isActive : false }, { new : true })
+
+        let toHistoric = {
+            _User : UserId,
+            actions : [{
+                eventAction : `Borro el modulo '${deletedModule.typeof}'`,
+                area : Area
+            }]
+        }
+
+        await Historics.add(toHistoric)
+
+        res.status(200).json({msg : `El modulo ${deletedModule.typeof} se borro con exito`})
+
+    } catch (err) {
+        console.log("Error in delete ->", err)
     }
 }
 

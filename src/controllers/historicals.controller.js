@@ -2,7 +2,7 @@ const BinHistoricals = require('../models/bin_historicals.model')
 const moment = require('moment')
 moment.locale("es")
 
-exports.add = async (content) => {
+exports.add = async (content) => { 
 
     try {
 
@@ -54,10 +54,10 @@ function ordering(historic){
         var year = dateRegistry.format("YYYY")
         var time = dateRegistry.format("h:mm a")
         var customDate = `${days} de ${month} del ${year} a las ${time}`
-        var changeCase = historical.current !== undefined ? `de '${historical.last}' a '${historical.current}'` : ''
+        var changeCase = historical.current !== undefined ? `, de '${historical.last}' a '${historical.current}'` : ''
 
         return content = {
-            action: `${historical.eventAction} en el area de ${historical.area} ${changeCase}`,
+            action: `${historical.eventAction} en el area de ${historical.area}${changeCase}`,
             date: customDate
         }
     })
