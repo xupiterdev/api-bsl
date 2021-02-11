@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const ProUsers = require('../models/pro_users.model');
 const jwt = require('jsonwebtoken')
+const Area = "Usuarios";
 
 const API_KEY = process.env.API_KEY
 
@@ -13,6 +14,16 @@ exports.signUp = async (req, res) => {
         proUser.password = await proUser.encryptPassword(proUser.password)
     
         await proUser.save();
+
+        let toHistoric = {
+            _User : UserId,
+            actions : [{
+                eventAction : `Agrego el usuario '${user.name}'`,
+                area : Area
+            }]
+        }
+
+        await Historics.add(toHistoric)
 
         return res.status(200).json({msg : `El usuario ${user.name} se guardo con exito :)`})
     }catch(err){
@@ -41,7 +52,8 @@ exports.signIn = async (req, res) => {
                 _id : userData._id,
                 name : userData.name,
                 lastname : userData.lastname,
-                user : userData.user
+                user : userData.user,
+                _Action: userData._Action
             },
             msg: `Bienvenido, ${userData.name}`
         })

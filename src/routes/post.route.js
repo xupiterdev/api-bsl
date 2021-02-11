@@ -6,7 +6,6 @@ const catalogsController = require('../controllers/catalogs.controller')
 const modulesController = require('../controllers/modules.controller')
 const actionsController = require('../controllers/actions.controller')
 const permissionsController = require('../controllers/permissions.controller')
-const historicsController = require('../controllers/historicals.controller')
 
 // CONFIG
 const router = express.Router();
@@ -25,8 +24,6 @@ router.post('/modules/action', middleware.validateToken, modulesController.addAc
 router.post('/actions/action', middleware.validateToken, actionsController.add)
 
 router.post('/permissions/permission', middleware.validateToken, permissionsController.add)
-
-router.post('/historics/historic', middleware.validateToken, permissionsController.add)
 
 // EXPORT
 module.exports = router;
