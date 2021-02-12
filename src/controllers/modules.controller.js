@@ -13,7 +13,7 @@ exports.add = async (req, res) => {
 
         if(type == "Sub") await ProModules.findByIdAndUpdate({_id : _Module},{ $push : { children : [data] } });
         else{
-            let addModule = new ProModules(module);
+            let addModule = new ProModules(data);
             await addModule.save()
         }
 
