@@ -50,7 +50,7 @@ exports.addAction = async (req, res) => {
 
         let findModule = await ProModules.find().populate('_Action').populate('children._Action').exec()
 
-        historic({ _User : UserId, actions : [{ eventAction : added, area : Area }] })
+        // historic({ _User : UserId, actions : [{ eventAction : added, area : Area }] })
 
         res.status(200).json({modules : findModule, msg : `La accion ${name} se guardo con exito :)`})
     }catch(err){
