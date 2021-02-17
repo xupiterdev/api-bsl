@@ -7,6 +7,8 @@ exports.add = async (req, res) => {
     const catalog = req.body
     const UserId = req._User
 
+    // console.log(req);
+
     try {
         let addedCatalog = new CatCatalogs(catalog)
         
@@ -58,16 +60,16 @@ exports.addOption = async (req, res) => {
 
 exports.find = async (req, res) => {
     const catalogId = req.query._id
-
+    
     try {
-
+        
         let findedCatalog
-
+        
         if (catalogId === undefined) {
             
             findedCatalog = await CatCatalogs.find()
 
-            if(findedCatalog === null) return res.status(202).json({msg : `No hay catalogos aun`})
+            if(Object.keys(findedCatalog).length === 0) return res.status(202).json({msg : `No hay catalogos aun`, catalogs : findedCatalog})
 
         }else{
 
@@ -77,7 +79,7 @@ exports.find = async (req, res) => {
 
         }
 
-        res.status(200).json(findedCatalog)
+        res.status(200).json({catalogs : findedCatalog})
         
     } catch (err) {
         console.log("Error in find ->" ,err)

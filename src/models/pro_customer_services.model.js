@@ -21,7 +21,7 @@ const customerS = new Schema({
         ref: 'cat_catalogs',
         required: true
     },
-    _typeMerchandise: {
+    _CatTypeMerchandise: {
         type: Schema.Types.ObjectId,
         ref: 'cat_catalogs',
         required: true

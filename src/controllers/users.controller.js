@@ -15,15 +15,15 @@ exports.signUp = async (req, res) => {
     
         await proUser.save();
 
-        let toHistoric = {
-            _User : UserId,
-            actions : [{
-                eventAction : `Agrego el usuario '${user.name}'`,
-                area : Area
-            }]
-        }
+        // let toHistoric = {
+        //     _User : UserId,
+        //     actions : [{
+        //         eventAction : `Agrego el usuario '${user.name}'`,
+        //         area : Area
+        //     }]
+        // }
 
-        await Historics.add(toHistoric)
+        // await Historics.add(toHistoric)
 
         return res.status(200).json({msg : `El usuario ${user.name} se guardo con exito :)`})
     }catch(err){
@@ -41,7 +41,7 @@ exports.signIn = async (req, res) => {
         if(! await userData.validatePassword(password)) return res.status(202).json({msg : "Tu contraseña es incorrecta, intenta nuevamente"})
         
         let token = jwt.sign({
-            _id : user._id
+            _id : userData._id
         }, API_KEY, {
             expiresIn : 60 * 60 * 24
         })

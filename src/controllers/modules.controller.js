@@ -1,19 +1,20 @@
 const ProModules = require('../models/pro_modules.model')
 const CatActions = require('../models/cat_actions.model')
 const Historics = require('./historicals.controller')
+const  mongoose = require('mongoose')
 const Area = "Modulos"
 
 exports.add = async (req, res) => {
     const {name, shortName, type, _Module} = req.body
     const UserId = req._User
 
-    let data = {name,shortName}
+    let data = {name, shortName}
 
     try {
 
         if(type == "Sub") await ProModules.findByIdAndUpdate({_id : _Module},{ $push : { children : [data] } });
         else{
-            let addModule = new ProModules(module);
+            let addModule = new ProModules(data);
             await addModule.save()
         }
 
@@ -45,9 +46,10 @@ exports.addAction = async (req, res) => {
         let AddAction = new CatActions(data);
         AddAction = await AddAction.save()
 
+        if(type == undefined){await ProModules.findOneAndUpdate({_id : _Module},{ $push : { _Action : AddAction._id } });}
         if(type == "Sub") await ProModules.findOneAndUpdate({"children._id" : _Module},{ $push : { "children.$._Action" : AddAction._id } });
 
-        let findModule = await ProModules.find().populate('cat_actions')
+        let findModule = await ProModules.find().populate('_Action').populate('children._Action').exec()
 
         res.status(200).json({modules : findModule, msg : `La accion ${name} se guardo con exito :)`})
     }catch(err){
@@ -56,8 +58,9 @@ exports.addAction = async (req, res) => {
 }
 
 exports.find = async (req, res) => {
+    
     try {
-        let modulesRes = await ProModules.find({}, {__v : 0}).populate('children._Action').exec()
+        let modulesRes = await ProModules.find({}, {__v : 0}).populate('_Action').populate('children._Action').exec()
 
         if(modulesRes === null) return res.status(202).json({msg : `No hay ningun tipo de modulos`})
 
