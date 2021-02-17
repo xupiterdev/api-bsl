@@ -15,7 +15,7 @@ exports.signUp = async (req, res) => {
         proUser.password = await proUser.encryptPassword(proUser.password)
     
         await proUser.save();
-
+        
         // historic({ _User : UserId, actions : [{ eventAction : `Agrego el usuario '${user.name}'`, area : "Usuarios" }] })
 
         return res.status(200).json({msg : `El usuario ${user.name} se guardo con exito :)`})

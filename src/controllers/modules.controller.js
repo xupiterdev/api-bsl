@@ -1,20 +1,18 @@
 const ProModules = require('../models/pro_modules.model')
 const CatActions = require('../models/cat_actions.model')
 const Historics = require('./historicals.controller')
+const  mongoose = require('mongoose')
 const Area = "Modulos"
 
 exports.add = async (req, res) => {
     const {name, shortName, type, _Module} = req.body
     const UserId = req._User
 
-    let data = {name,shortName}
+    let data = {name, shortName}
 
     try {
-        let added
-        if(type == "Sub"){
-            await ProModules.findByIdAndUpdate({_id : _Module},{ $push : { children : [data] } });
-            added = `Agrego el submodulo '${name}'`
-        }else{
+        if(type == "Sub") await ProModules.findByIdAndUpdate({_id : _Module},{ $push : { children : [data] } });
+        else{
             let addModule = new ProModules(data);
             await addModule.save()
             added = `Agrego el modulo '${name}'`
@@ -61,6 +59,7 @@ exports.addAction = async (req, res) => {
 }
 
 exports.find = async (req, res) => {
+    
     try {
         let modulesRes = await ProModules.find({}, {__v : 0}).populate('_Action').populate('children._Action').exec()
 
