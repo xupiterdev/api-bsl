@@ -2,12 +2,13 @@ require('dotenv').config()
 
 const ProUsers = require('../models/pro_users.model');
 const jwt = require('jsonwebtoken')
-const Area = "Usuarios";
+const Historics = require('./historicals.controller')
 
 const API_KEY = process.env.API_KEY
 
 exports.signUp = async (req, res) => {
     const user = req.body;
+    const UserId = req._User
 
     try{
         let proUser = new ProUsers(user)
@@ -15,15 +16,7 @@ exports.signUp = async (req, res) => {
     
         await proUser.save();
 
-        let toHistoric = {
-            _User : UserId,
-            actions : [{
-                eventAction : `Agrego el usuario '${user.name}'`,
-                area : Area
-            }]
-        }
-
-        await Historics.add(toHistoric)
+        historic({ _User : UserId, actions : [{ eventAction : `Agrego el usuario '${user.name}'`, area : "Usuarios" }] })
 
         return res.status(200).json({msg : `El usuario ${user.name} se guardo con exito :)`})
     }catch(err){
@@ -41,10 +34,12 @@ exports.signIn = async (req, res) => {
         if(! await userData.validatePassword(password)) return res.status(202).json({msg : "Tu contraseña es incorrecta, intenta nuevamente"})
         
         let token = jwt.sign({
-            _id : user._id
+            _id : userData._id
         }, API_KEY, {
             expiresIn : 60 * 60 * 24
         })
+
+        historic({ _User : userData._id, actions : [{ eventAction : `Inicio sesion el usuario '${userData.name}'`, area : "Pagina principal" }] })
 
         res.status(200).json({
             token,
@@ -60,4 +55,24 @@ exports.signIn = async (req, res) => {
     }catch(err){
         console.log("Error in singIn -> ",err)
     }
+}
+
+exports.update = async (req, res) => {
+    const user = req.body
+    const UserId = req._User
+
+    try {
+        let updatedUser = ProUsers.findByIdAndUpdate(user._id,user.content, { new : true })
+
+        historic({ _User : UserId, actions : [{ eventAction : `Modifico un usuario`, area : Area }] })
+
+        res.status(200).json({ updated : updatedUser, msg : `El usuario se modifico con exito`})
+    } catch (err) {
+        console.log("Error in update ->", err)
+    }
+}
+
+//Function to record the user actions
+historic = async (toHistoric) => {
+    await Historics.add(toHistoric)
 }

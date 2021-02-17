@@ -4,71 +4,56 @@ const Schema = mongoose.Schema
 
 const customerS = new Schema({
     reference: {
-        type: String,
-        required: true
+        type: String
     },
     _CatClient: {
         type: Schema.Types.ObjectId,
-        ref: 'cat_catalogs',
-        required: true
+        ref: 'cat_catalogs'
     },
     documentsReception: {
-        type: Date,
-        required: true
+        type: Date
     },
     _CatTypeOperation: {
         type: Schema.Types.ObjectId,
-        ref: 'cat_catalogs',
-        required: true
+        ref: 'cat_catalogs'
     },
     _CatTypeMerchandise: {
         type: Schema.Types.ObjectId,
-        ref: 'cat_catalogs',
-        required: true
+        ref: 'cat_catalogs'
     },
     _CatLogisticOperator: {
         type: Schema.Types.ObjectId,
-        ref: 'cat_catalogs',
-        required: true
+        ref: 'cat_catalogs'
     },
     _CatCommercialOffice: {
         type: Schema.Types.ObjectId,
-        ref: 'cat_catalogs',
-        required: true
+        ref: 'cat_catalogs'
     },
     container: {
-        type: String,
-        required: true
+        type: String
     },
-    containerReference: {
-        type: String,
-        required: true
+    clientReference: {
+        type: String
     },
     BM: {
-        type: String,
-        required: true
+        type: String
     },
     _CatShipowner: {
         type: Schema.Types.ObjectId,
-        ref: 'cat_catalogs',
-        required: true
+        ref: 'cat_catalogs'
     },
     BL: [{
-        type: String,
-        required: true
+        type: String
     }],
     portOfOrigin: {
-        type: String,
-        required: true
+        type: String
     },
     seaFreight: {
-        type: String,
-        required: true
+        type: String
     },
     _Executive: {
         type: Schema.Types.ObjectId,
-        ref: 'pro_users',
-        required: true
+        ref: 'pro_users'
     }
 
 })

@@ -10,27 +10,21 @@ exports.add = async (req, res) => {
     let data = {name,shortName}
 
     try {
-
-        if(type == "Sub") await ProModules.findByIdAndUpdate({_id : _Module},{ $push : { children : [data] } });
-        else{
+        let added
+        if(type == "Sub"){
+            await ProModules.findByIdAndUpdate({_id : _Module},{ $push : { children : [data] } });
+            added = `Agrego el submodulo '${name}'`
+        }else{
             let addModule = new ProModules(data);
             await addModule.save()
+            added = `Agrego el modulo '${name}'`
         }
 
         let findModule = await ProModules.find()
 
-        let toHistoric = {
-            _User : UserId,
-            actions : [{
-                eventAction : `Agrego el modulo '${name}'`,
-                area : Area
-            }]
-        }
-
-        await Historics.add(toHistoric)
+        historic({ _User : UserId, actions : [{ eventAction : added, area : Area }] })
 
         res.status(200).json({modules : findModule, msg : `El modulo ${name} se guardo con exito :)`})
-
     } catch (err) {
         console.log("Error in addModule ->", err)
     }
@@ -41,7 +35,24 @@ exports.addAction = async (req, res) => {
     let data = {name, description}
 
     try{
+        // let AddAction = new CatActions(data);
+        // AddAction = await AddAction.save()
+        // let added = `Agrego la accion ${data.name}`
 
+        // if(type == "Sub"){
+        //     let actionToModule = await ProModules.findOneAndUpdate({"children._id" : _Module},{ $push : { "children.$._Action" : AddAction._id } })
+        //     added = `${added} en el submodulo ${actionToModule.name}`
+        // }
+
+        // let findModule = await ProModules.find().populate('cat_actions')
+
+        // historic({
+        //     _User : UserId,
+        //     actions : [{
+        //         eventAction : added,
+        //         area : Area
+        //     }]
+        // })
         let AddAction = new CatActions(data);
         AddAction = await AddAction.save()
 
@@ -62,8 +73,6 @@ exports.find = async (req, res) => {
         if(modulesRes === null) return res.status(202).json({msg : `No hay ningun tipo de modulos`})
 
         res.status(200).json({modules : modulesRes})
-
-
     } catch (err) {
         console.log("Error in find ->", err)
     }
@@ -75,24 +84,19 @@ exports.delete = async (req, res) => {
     const UserId = req._User
 
     try {
-        
         let deletedModule = await ProModules.findByIdAndUpdate(idModule, { isActive : false }, { new : true })
 
-        let toHistoric = {
-            _User : UserId,
-            actions : [{
-                eventAction : `Borro el modulo '${deletedModule.typeof}'`,
-                area : Area
-            }]
-        }
-
-        await Historics.add(toHistoric)
+        historic({ _User : UserId, actions : [{ eventAction : `Borro el modulo '${deletedModule.typeof}'`, area : Area }] })
 
         res.status(200).json({msg : `El modulo ${deletedModule.typeof} se borro con exito`})
-
     } catch (err) {
         console.log("Error in delete ->", err)
     }
+}
+
+//Function to record the user actions
+historic = async (toHistoric) => {
+    await Historics.add(toHistoric)
 }
 
 

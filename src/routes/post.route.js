@@ -5,7 +5,6 @@ const usersController = require('../controllers/users.controller')
 const catalogsController = require('../controllers/catalogs.controller')
 const modulesController = require('../controllers/modules.controller')
 const actionsController = require('../controllers/actions.controller')
-const permissionsController = require('../controllers/permissions.controller')
 
 // CONFIG
 const router = express.Router();
@@ -22,8 +21,6 @@ router.post('/modules/module', middleware.validateToken, modulesController.add)
 router.post('/modules/action', middleware.validateToken, modulesController.addAction)
 
 router.post('/actions/action', middleware.validateToken, actionsController.add)
-
-router.post('/permissions/permission', middleware.validateToken, permissionsController.add)
 
 // EXPORT
 module.exports = router;
