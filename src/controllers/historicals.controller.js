@@ -5,25 +5,17 @@ moment.locale("es")
 exports.add = async (content) => { 
 
     try {
-
         let findedHistorical = await BinHistoricals.findOne({"_User" : content._User})
 
-        let historic
-
         if (findedHistorical == null) {
-
-            historic = new BinHistoricals(content)
+            let historic = new BinHistoricals(content)
 
             await historic.save()
-
         }else{
-
-            historic = await BinHistoricals.findByIdAndUpdate(findedHistorical._id, { $push : { actions : content.actions }})
-
+            await BinHistoricals.findByIdAndUpdate(findedHistorical._id, { $push : { actions : content.actions }})
         }
 
         return(true)
-
     } catch (err){
         console.log("Error in add ->", err)
     }
@@ -32,14 +24,12 @@ exports.add = async (content) => {
 exports.find = async (req, res) => {
     const UserId = req.query._id
 
-    try {
-        
+    try {    
         let findedHistorical = await BinHistoricals.findOne({"_User" : UserId})
 
         let ordered = ordering(findedHistorical)
         
         res.status(200).json(ordered)
-
     } catch (err) {
         console.log("Error in find ->", err)
     }
