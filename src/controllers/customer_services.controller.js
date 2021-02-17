@@ -10,7 +10,7 @@ exports.add = async (req, res) => {
         let newReference = new ProCustomerServices(referenceBody)
         let addedReference = await newReference.save()
 
-        historic({_User : UserId, actions : [{ eventAction : `Agrego la referencia '${addedReference.reference}'`, area : Area }] })
+        // historic({_User : UserId, actions : [{ eventAction : `Agrego la referencia '${addedReference.reference}'`, area : Area }] })
 
         return res.status(200).json({msg : `La referencia ${addedReference.reference} se guardo con exito :)`})
     } catch (err) {

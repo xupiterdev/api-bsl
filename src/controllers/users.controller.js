@@ -16,7 +16,7 @@ exports.signUp = async (req, res) => {
     
         await proUser.save();
 
-        historic({ _User : UserId, actions : [{ eventAction : `Agrego el usuario '${user.name}'`, area : "Usuarios" }] })
+        // historic({ _User : UserId, actions : [{ eventAction : `Agrego el usuario '${user.name}'`, area : "Usuarios" }] })
 
         return res.status(200).json({msg : `El usuario ${user.name} se guardo con exito :)`})
     }catch(err){
@@ -39,7 +39,7 @@ exports.signIn = async (req, res) => {
             expiresIn : 60 * 60 * 24
         })
 
-        historic({ _User : userData._id, actions : [{ eventAction : `Inicio sesion el usuario '${userData.name}'`, area : "Pagina principal" }] })
+        // historic({ _User : userData._id, actions : [{ eventAction : `Inicio sesion el usuario '${userData.name}'`, area : "Pagina principal" }] })
 
         res.status(200).json({
             token,
@@ -64,7 +64,7 @@ exports.update = async (req, res) => {
     try {
         let updatedUser = ProUsers.findByIdAndUpdate(user._id,user.content, { new : true })
 
-        historic({ _User : UserId, actions : [{ eventAction : `Modifico un usuario`, area : Area }] })
+        // historic({ _User : UserId, actions : [{ eventAction : `Modifico un usuario`, area : Area }] })
 
         res.status(200).json({ updated : updatedUser, msg : `El usuario se modifico con exito`})
     } catch (err) {

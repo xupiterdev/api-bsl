@@ -22,7 +22,7 @@ exports.add = async (req, res) => {
 
         let findModule = await ProModules.find()
 
-        historic({ _User : UserId, actions : [{ eventAction : added, area : Area }] })
+        // historic({ _User : UserId, actions : [{ eventAction : added, area : Area }] })
 
         res.status(200).json({modules : findModule, msg : `El modulo ${name} se guardo con exito :)`})
     } catch (err) {
@@ -86,7 +86,7 @@ exports.delete = async (req, res) => {
     try {
         let deletedModule = await ProModules.findByIdAndUpdate(idModule, { isActive : false }, { new : true })
 
-        historic({ _User : UserId, actions : [{ eventAction : `Borro el modulo '${deletedModule.typeof}'`, area : Area }] })
+        // historic({ _User : UserId, actions : [{ eventAction : `Borro el modulo '${deletedModule.typeof}'`, area : Area }] })
 
         res.status(200).json({msg : `El modulo ${deletedModule.typeof} se borro con exito`})
     } catch (err) {

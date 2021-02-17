@@ -11,7 +11,7 @@ exports.add = async (req, res) => {
         let newCatalog = new CatCatalogs(catalog)    
         let addedCatalog = await newCatalog.save()
 
-        historic({_User : UserId, actions : [{ eventAction : `Agrego el catalogo '${addedCatalog.typeof}'`, area : Area }] })
+        // historic({_User : UserId, actions : [{ eventAction : `Agrego el catalogo '${addedCatalog.typeof}'`, area : Area }] })
 
         return res.status(200).json({msg : `El catalogo ${addedCatalog.typeof} y su contenido se guardo con exito :)`})
     } catch (err) {
@@ -28,7 +28,7 @@ exports.addOption = async (req, res) => {
 
         if(addedOption === null) return res.status(202).json({msg : `El catalogo seleccionado no existe en la base de datos`})
 
-        historic({ _User : UserId, actions : [{ eventAction : `Agrego una opcion al catalogo '${addedOption.typeof}'`, area : Area }] })
+        // historic({ _User : UserId, actions : [{ eventAction : `Agrego una opcion al catalogo '${addedOption.typeof}'`, area : Area }] })
 
         res.status(200).json({msg : `La opcion ${catalog.option} se guardo correctamente`})
     } catch (error) {
@@ -64,7 +64,7 @@ exports.updTypeof = async (req, res) => {
     try {
         let updatedCatalog = await CatCatalogs.updateTypeof(catalog._id,catalog.typeof)
 
-        historic({ _User : UserId, actions : [{ eventAction : `Modifico un catalogo`, area : Area, current : updatedCatalog.catalog.typeof, last : updatedCatalog.last }] })
+        // historic({ _User : UserId, actions : [{ eventAction : `Modifico un catalogo`, area : Area, current : updatedCatalog.catalog.typeof, last : updatedCatalog.last }] })
 
         res.status(200).json({ updated : updatedCatalog.catalog, msg : `El catalogo se modifico de ${updatedCatalog.last} a ${updatedCatalog.catalog.typeof}`})
     } catch (err) {
@@ -81,7 +81,7 @@ exports.updOption = async (req, res) => {
 
         let changed = updatedOption.options.find(x => x._id.equals(option._id))
 
-        historic({ _User : UserId, actions : [{ eventAction : `Modifico una opcion del catalogo '${updatedOption.typeof}'`, area : Area, current: option.value, last: changed.value }] })
+        // historic({ _User : UserId, actions : [{ eventAction : `Modifico una opcion del catalogo '${updatedOption.typeof}'`, area : Area, current: option.value, last: changed.value }] })
 
         return res.status(200).json({msg: `La opcion se actualizo de ${changed.value} a ${option.value} con exito :)`})
     } catch (err) {
@@ -97,7 +97,7 @@ exports.delete = async (req, res) => {
     try {
         let deletedCatalog = await CatCatalogs.findByIdAndUpdate(catalogId, { isActive : false }, { new : true })
 
-        historic({ _User : UserId, actions : [{ eventAction : `Borro el catalogo '${deletedCatalog.typeof}'`, area : Area }] })
+        // historic({ _User : UserId, actions : [{ eventAction : `Borro el catalogo '${deletedCatalog.typeof}'`, area : Area }] })
 
         res.status(200).json({msg : `El catalogo ${deletedCatalog.typeof} se borro con exito`})
     } catch (err) {
@@ -114,7 +114,7 @@ exports.deleteOption = async (req, res) => {
 
         let changed = deletedOption.options.find(x => x._id.equals(optionId))
 
-        historic({ _User : UserId, actions : [{ eventAction : `Borro el catalogo '${deletedCatalog.typeof}'`, area : Area }] })
+        // historic({ _User : UserId, actions : [{ eventAction : `Borro el catalogo '${deletedCatalog.typeof}'`, area : Area }] })
 
         res.status(200).json({msg : `La opcion ${changed.value} se borro con exito`})
     } catch (err) {
