@@ -44,7 +44,7 @@ exports.find = async (req, res) => {
         if (catalogId === undefined) {          
             findedCatalog = await CatCatalogs.find()
 
-            if(findedCatalog === null) return res.status(202).json({msg : `No hay catalogos aun`})
+            if(Object.keys(findedCatalog).length === 0) return res.status(202).json({msg : `No hay catalogos aun`, catalogs : findedCatalog})
         }else{
             findedCatalog = await CatCatalogs.findById(catalogId)
 

@@ -33,32 +33,26 @@ exports.add = async (req, res) => {
 exports.addAction = async (req, res) => {
     const {name, description, _Module, type} = req.body;
     let data = {name, description}
+    const UserId = req._User
 
     try{
-        // let AddAction = new CatActions(data);
-        // AddAction = await AddAction.save()
-        // let added = `Agrego la accion ${data.name}`
-
-        // if(type == "Sub"){
-        //     let actionToModule = await ProModules.findOneAndUpdate({"children._id" : _Module},{ $push : { "children.$._Action" : AddAction._id } })
-        //     added = `${added} en el submodulo ${actionToModule.name}`
-        // }
-
-        // let findModule = await ProModules.find().populate('cat_actions')
-
-        // historic({
-        //     _User : UserId,
-        //     actions : [{
-        //         eventAction : added,
-        //         area : Area
-        //     }]
-        // })
         let AddAction = new CatActions(data);
         AddAction = await AddAction.save()
+        let added = `Agrego la accion ${data.name}`
+        let actionToModule
 
-        if(type == "Sub") await ProModules.findOneAndUpdate({"children._id" : _Module},{ $push : { "children.$._Action" : AddAction._id } });
+        if(type == undefined){
+            actionToModule = await ProModules.findOneAndUpdate({_id : _Module},{ $push : { _Action : AddAction._id } })
+            added = `${added} en el modulo ${actionToModule.name}`
+        }
+        if(type == "Sub"){
+            actionToModule = await ProModules.findOneAndUpdate({"children._id" : _Module},{ $push : { "children.$._Action" : AddAction._id } })
+            added = `${added} en el submodulo ${actionToModule.name}`
+        }
 
-        let findModule = await ProModules.find().populate('cat_actions')
+        let findModule = await ProModules.find().populate('_Action').populate('children._Action').exec()
+
+        historic({ _User : UserId, actions : [{ eventAction : added, area : Area }] })
 
         res.status(200).json({modules : findModule, msg : `La accion ${name} se guardo con exito :)`})
     }catch(err){
@@ -68,7 +62,7 @@ exports.addAction = async (req, res) => {
 
 exports.find = async (req, res) => {
     try {
-        let modulesRes = await ProModules.find({}, {__v : 0}).populate('children._Action').exec()
+        let modulesRes = await ProModules.find({}, {__v : 0}).populate('_Action').populate('children._Action').exec()
 
         if(modulesRes === null) return res.status(202).json({msg : `No hay ningun tipo de modulos`})
 
